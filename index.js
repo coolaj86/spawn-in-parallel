@@ -1,7 +1,5 @@
 'use strict';
 
-var _ = require('lodash');
-
 var _defaults = {
   env: {
     PATH: process.env.PATH
@@ -11,14 +9,12 @@ var _defaults = {
   cwd: process.cwd()
 };
 
-function applyDefaults(yourOpts) {
-  var opts = _.cloneDeep(_defaults);
-  _.merge(opts, yourOpts);
-  return opts;
+function mergeDefaults(yourOpts) {
+  return Object.assign({}, _defaults, yourOpts);
 }
 
 function spawn(cmd, opts = {}) {
-  return require('child_process').spawn(cmd, applyDefaults(opts));
+  return require('child_process').spawn(cmd, mergeDefaults(opts));
 }
 
 module.exports = function (arr, opts = {}) {
